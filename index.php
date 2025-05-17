@@ -1,31 +1,33 @@
 <?php
-session_start();
 
-// Credenciais estáticas
-$usuario_correto = "admin";
-$senha_correta = "123456";
-
-// Verifica se o usuário já está logado
-if (isset($_SESSION['logado']) && $_SESSION['logado'] === true) {
-    header("Location: home.php");
-    exit;
-}
+require_once 'Auth.php';
 
 // Processa o formulário de login
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
     $usuario = $_POST['usuario'] ?? '';
     $senha = $_POST['senha'] ?? '';
     
-    if ($usuario === $usuario_correto && $senha === $senha_correta) {
-        $_SESSION['logado'] = true;
-        $_SESSION['usuario'] = $usuario;
+    if (Auth::login($usuario, $senha)) {
         header("Location: home.php");
         exit;
     } else {
         $erro = "Usuário ou senha incorretos!";
     }
+
+}
+
+// Se já estiver logado, redireciona
+if (Auth::estaLogado()) {
+
+    header("Location: home.php");
+
+    exit;
+    
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
