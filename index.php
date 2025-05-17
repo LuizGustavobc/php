@@ -37,7 +37,7 @@ if (Auth::estaLogado()) {
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <div class="login-container">
+    <div id="login-container">
         <h1>Login</h1>
         <?php if (isset($erro)): ?>
             <div class="erro"><?php echo $erro; ?></div>
@@ -50,7 +50,7 @@ if (Auth::estaLogado()) {
             <div class="form-group">
                 <label for="senha">Senha:</label>
                 <input type="password" id="senha" name="senha" required>
-            </div>
+            </div> 
             <button type="submit" class="btn-login">Entrar</button>
         </form>
     </div>
