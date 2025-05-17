@@ -5,11 +5,8 @@ require "pages/index.php";
 $name = $_POST["nome"];
 $senha = $_POST["senha"];
 
-if ($name == ""&& $senha == "") {
-    $check = true;
-};
-
-$page = new index($check);
+$index = new index($name, $senha);
+$page = $index->caregaPage();
 
 ?>
 
@@ -21,6 +18,6 @@ $page = new index($check);
     <title>Document</title>
 </head>
 <body>
-    <?echo $page?>
+    <?php echo $page;?>
 </body>
 </html>

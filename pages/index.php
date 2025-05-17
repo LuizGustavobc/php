@@ -2,18 +2,27 @@
 
 class index{
     public function __construct(
-        private bool $check
+        private string $nome,
+        private string $senha,
     ){
     }
     public function caregaPage(){
-        if($this->check == true){
+        if($this->nome == "luiz"&& $this->senha == "1234"){
         $page = "  
             <header>
-                <p>Ola</p>
+                <section>
+                    <form action=\"index.html\">
+                        <input type=\"submit\" value=\"Voltar\">
+                    </form>
+                </section>
             </header>
         ";
-        log($page);
-        return $page;
         }
+        else{
+            $page = "
+                <p>Usuario nao identificado</p>
+            ";
+        }
+        return $page;
     }
 }
