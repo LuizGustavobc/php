@@ -1,0 +1,83 @@
+CREATE TABLE pessoa(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    nome varchar(100),
+    identidade int,
+    nascimento date,
+    numero int,
+    email varchar(150),
+    endereco varchar(150),
+    bairro varchar(150),
+    cep int,
+    estado varchar(100)
+);
+CREATE TABLE usuario(
+    id int AUTO_INCREMENT PRIMARY KEY,
+	login varchar(150) UNIQUE,
+    senha varchar(150),
+    dataCriacao date,
+    idPessoa int,
+    FOREIGN KEY (idPessoa) REFERENCES pessoa(id) ON DELETE CASCADE ON UPDATE RESTRICT
+);
+CREATE TABLE comprador(
+    id int AUTO_INCREMENT PRIMARY KEY,
+	dataCriacao date,
+    idPessoa int,
+    FOREIGN KEY (idPessoa) REFERENCES pessoa(id) ON DELETE CASCADE ON UPDATE RESTRICT
+);
+
+CREATE TABLE colheita(
+	id int AUTO_INCREMENT PRIMARY KEY,
+    descricao varchar(200),
+    dataColheita date
+);
+CREATE TABLE produto(
+	id int AUTO_INCREMENT PRIMARY KEY,
+    valor float,
+    nome varchar(150),
+    medicao varchar(50)
+);
+CREATE TABLE venda(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    dataVenda dateTime,
+    valorVenda float,
+    idComprador int,
+    idUsuario int,
+    FOREIGN KEY (idComprador) REFERENCES comprador(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE ON UPDATE RESTRICT
+);
+CREATE TABLE pagamento(
+	id int AUTO_INCREMENT PRIMARY KEY,
+    nomeComprador varchar(150),
+	cpfComprador int,
+    valor float
+);
+
+CREATE TABLE colheitaProduto(
+	id int AUTO_INCREMENT PRIMARY KEY,
+    quantidade int,
+    idProduto int,
+    idColheita int,
+    FOREIGN KEY (idProduto) REFERENCES produto(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    FOREIGN KEY (idColheita) REFERENCES colheita(id) ON DELETE CASCADE ON UPDATE RESTRICT
+);
+CREATE TABLE vendaProduto(
+	id int AUTO_INCREMENT PRIMARY KEY,
+    quantidade int,
+    idVenda int,
+    idProduto int,
+    FOREIGN KEY (idVenda) REFERENCES venda(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    FOREIGN KEY (idProduto) REFERENCES produto(id) ON DELETE CASCADE ON UPDATE RESTRICT
+);
+CREATE TABLE pagamentoVenda(
+	id int AUTO_INCREMENT PRIMARY KEY,
+    dataPagamento dateTime,
+    idVenda int,
+    idPagamento int,
+    FOREIGN KEY (idVenda) REFERENCES venda(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    FOREIGN KEY (idPagamento) REFERENCES pagamento(id) ON DELETE CASCADE ON UPDATE RESTRICT
+);
+
+CREATE TABLE relatorio(
+ 	id int AUTO_INCREMENT PRIMARY KEY,
+    statusVenda varchar(50)
+);
