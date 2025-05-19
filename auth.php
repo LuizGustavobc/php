@@ -1,9 +1,9 @@
 <?php
+require __DIR__ . "/assets/src/controller/checkUser.php";
+
 session_start();
 
 class Auth {
-    private static $usuarioCorreto = "admin";
-    private static $senhaCorreta = "123456";
 
     // Verifica se o usuário está logado
     public static function estaLogado() {
@@ -12,7 +12,11 @@ class Auth {
 
     // Processa o login
     public static function login($usuario, $senha) {
-        if ($usuario === self::$usuarioCorreto && $senha === self::$senhaCorreta) {
+
+        $chec = new CheckUser($usuario, $senha);
+        $verifi = $chec->verifi();
+
+        if ($verifi == true) {
             $_SESSION['logado'] = true;
             $_SESSION['usuario'] = $usuario;
             return true;
@@ -51,4 +55,3 @@ class Auth {
         
     }
 }
-?>
