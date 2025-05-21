@@ -1,6 +1,6 @@
 <?php 
-    require __DIR__ . "/../db/connection.php";
-class User 
+    require __DIR__ . "/../../config/connection.php";
+class ModelCheckUser 
 {
     public function chec($user){
         try{
@@ -9,7 +9,7 @@ class User
             $user = $stmt->fetchAll();
             return $user[0];
         } catch(Exception $e){
-            echo "<p class='erro'>".$e->getMessage()."</p>";
+            throw new Exception($e->getMessage());
         } finally{
             Connection::disconnect();
         }

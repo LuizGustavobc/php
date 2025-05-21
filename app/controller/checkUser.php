@@ -1,16 +1,16 @@
 <?php 
-require __DIR__ . "/../model/checUser.php";
+require __DIR__ . "/../model/modelChecUser.php";
 
 class CheckUser 
 {
-    public function __construct(
+    public function __construct(   
             private string $user,
             private string $password,
     ) {
     }
     public function verifi() {
 
-        $user = new User();
+        $user = new ModelCheckUser();
         $pass = $user->chec($this->user);
 
         if ($this->password === $pass["senha"]) {
@@ -22,6 +22,6 @@ class CheckUser
 
 }
     
-#$user = new ChecUser("admin", "1234");
+#$user = new CheckUser("admin", "1234");
 #$u = $user->verifi();
 #print_r( $u);

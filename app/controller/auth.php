@@ -1,7 +1,6 @@
 <?php
-require __DIR__ . "/assets/src/controller/checkUser.php";
+require_once __DIR__. "/checkUser.php";
 
-session_start();
 
 class Auth {
 
@@ -41,7 +40,7 @@ class Auth {
     public static function protegerPagina() {
         if (!self::estaLogado()) {
 
-            header("Location: index.php");
+            header("Location: ../../public/index.php");
 
             exit;
 

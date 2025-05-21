@@ -1,13 +1,21 @@
 <?php
-require_once 'Auth.php';
-Auth::protegerPagina();
+
+require_once '../controller/auth.php';
+session_start();
+
+if (!Auth::estaLogado()) {
+    header("Location: login.php");
+    exit;
+}
+?>
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <title>Página Principal</title>
-    <link rel="stylesheet" href="assets/css/styleHome.css">
+    <link rel="stylesheet" href="css/styleHome.css">
 </head>
 <body>
     <header>
