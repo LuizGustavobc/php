@@ -12,8 +12,9 @@ class CheckUser
 
         $user = new ModelCheckUser();
         $pass = $user->chec($this->user);
+        $pass = $pass['senha'] ?? null;
 
-        if ($this->password === $pass["senha"]) {
+        if ($this->password === $pass) {
             return true;
         }else{
             return false;

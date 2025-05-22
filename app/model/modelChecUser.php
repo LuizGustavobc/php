@@ -7,7 +7,7 @@ class ModelCheckUser
             $db = Connection::connect();
             $stmt = $db->query("SELECT (senha) FROM usuario WHERE login = \"$user\"");
             $user = $stmt->fetchAll();
-            return $user[0];
+            return $user[0] ?? null;
         } catch(Exception $e){
             throw new Exception($e->getMessage());
         } finally{
