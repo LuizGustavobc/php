@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__. "/checkUser.php";
-
+session_start();
 
 class Auth {
 
@@ -37,7 +37,7 @@ class Auth {
     }
 
     // Protege uma página (redireciona se não estiver logado)
-    public static function protegerPagina() {
+    public static function verifiRetur() {
         if (!self::estaLogado()) {
 
             header("Location: ../../public/index.php");
