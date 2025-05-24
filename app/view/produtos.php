@@ -9,6 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $produtosC->create();
 }
 
+
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
