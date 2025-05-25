@@ -4,7 +4,7 @@ require_once __DIR__ . '/../model/userData/contatos.php';
 require_once __DIR__ . '/../model/userData/endereco.php';
 
 
-class PesoaControle
+class PessoaController
 {   
     public function cadastrar(){
         // Debug: Verifique o valor recebido
@@ -44,5 +44,5 @@ class PesoaControle
         return $id ;
     }
 }
-#$pessoa = new PesoaControle();
+#$pessoa = new PessoaController();
 #$pessoa->cadastro();

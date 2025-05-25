@@ -8,205 +8,223 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $produtosC = new ProdutosControler();
     $produtosC->create();
 }
-
-
-
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AgroControl - Produtos</title>
-    <link rel="stylesheet" href="css/produtos.css"/>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #388E3C;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+        }
+        
+        .navbar {
+            background-color: var(--primary-color);
+        }
+        
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+        
+        .nav-link:hover {
+            color: #e0e0e0 !important;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .page-title {
+            color: var(--secondary-color);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="logo">AgroControl</div>
-        <nav>
-            <ul>
-                <li><a href="home.php">Home</a></li>
-                <li><a href="pessoas.php">Pessoas</a></li>
-                <li><a href="produtos.php">Produtos</a></li>
-                <li><a href="vendas.php">Vendas</a></li>
-                <li><a href="colheitas.php">Colheitas</a></li>
-                <li><a href="relatorios.php">Relatórios</a></li>
-                <li><a href="logout.php">SAIR</a></li>
-            </ul>
-        </nav>
-    </header>
-    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">AgroControl</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.php"><i class="bi bi-house-door"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pessoas.php"><i class="bi bi-people"></i> Compradores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="produtos.php"><i class="bi bi-box-seam"></i> Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vendas.php"><i class="bi bi-cash-coin"></i> Vendas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="colheitas.php"><i class="bi bi-basket"></i> Colheitas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="relatorios.php"><i class="bi bi-graph-up"></i> Relatórios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php"><i class="bi bi-box-arrow-right"></i> Sair</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
-        <div class="page-header">
-            <h1 class="page-title">Produtos</h1>
-            <button class="btn" onclick="openModal('create')">Adicionar Produto</button>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="page-title"><i class="bi bi-box-seam"></i> Produtos</h1>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">
+                <i class="bi bi-plus-circle"></i> Adicionar Produto
+            </button>
         </div>
         
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Valor</th>
-                    <th>Modificado</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Tomate Orgânico</td>
-                    <td>R$ 5,90/kg</td>
-                    <td>15/05/2023</td>
-                    <td class="actions">
-                        <button class="btn btn-secondary" onclick="openModal('edit', 1)">Editar</button>
-                        <button class="btn btn-danger" onclick="confirmDelete(1)">Excluir</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Alface Crespa</td>
-                    <td>R$ 3,50/un</td>
-                    <td>14/05/2023</td>
-                    <td class="actions">
-                        <button class="btn btn-secondary" onclick="openModal('edit', 2)">Editar</button>
-                        <button class="btn btn-danger" onclick="confirmDelete(2)">Excluir</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Cenoura</td>
-                    <td>R$ 4,20/kg</td>
-                    <td>12/05/2023</td>
-                    <td class="actions">
-                        <button class="btn btn-secondary" onclick="openModal('edit', 3)">Editar</button>
-                        <button class="btn btn-danger" onclick="confirmDelete(3)">Excluir</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Valor</th>
+                        <th>Modificado</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Tomate Orgânico</td>
+                        <td>R$ 5,90/kg</td>
+                        <td>15/05/2023</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#productModal" data-bs-mode="edit" data-bs-id="1">
+                                <i class="bi bi-pencil"></i> Editar
+                            </button>
+                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal" data-bs-id="1">
+                                <i class="bi bi-trash"></i> Excluir
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Alface Crespa</td>
+                        <td>R$ 3,50/un</td>
+                        <td>14/05/2023</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#productModal" data-bs-mode="edit" data-bs-id="2">
+                                <i class="bi bi-pencil"></i> Editar
+                            </button>
+                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal" data-bs-id="2">
+                                <i class="bi bi-trash"></i> Excluir
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Cenoura</td>
+                        <td>R$ 4,20/kg</td>
+                        <td>12/05/2023</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#productModal" data-bs-mode="edit" data-bs-id="3">
+                                <i class="bi bi-pencil"></i> Editar
+                            </button>
+                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal" data-bs-id="3">
+                                <i class="bi bi-trash"></i> Excluir
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     
     <!-- Modal de Criação/Edição -->
-    <div id="productModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">Adicionar Produto</h2>
-                <span class="close" onclick="closeModal()">&times;</span>
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalLabel">Adicionar Produto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="productForm" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" id="productId" name="id">
+                        <div class="mb-3">
+                            <label for="productName" class="form-label">Nome do Produto</label>
+                            <input type="text" class="form-control" id="productName" name="nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productValue" class="form-label">Valor</label>
+                            <input type="text" class="form-control" id="productValue" name="valor" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productModified" class="form-label">Modificado</label>
+                            <input type="date" class="form-control" id="productModified" name="modificado" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
             </div>
-            <form id="productForm">
-                <input type="hidden" id="productId">
-                <div class="form-group">
-                    <label for="productName">Nome do Produto</label>
-                    <input type="text" id="productName" required>
-                </div>
-                <div class="form-group">
-                    <label for="productValue">Valor</label>
-                    <input type="text" id="productValue" required>
-                </div>
-                <div class="form-group">
-                    <label for="productModified">Modificado</label>
-                    <input type="text" id="productModified" required>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
-                    <button type="submit" class="btn">Salvar</button>
-                </div>
-            </form>
         </div>
     </div>
     
     <!-- Modal de Confirmação de Exclusão -->
-    <div id="confirmModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Confirmar Exclusão</h2>
-                <span class="close" onclick="closeModal()">&times;</span>
-            </div>
-            <p>Tem certeza que deseja excluir este produto?</p>
-            <div class="form-actions">
-                <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
-                <button type="button" class="btn btn-danger" onclick="deleteProduct()">Excluir</button>
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Confirmar Exclusão</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja excluir este produto?</p>
+                    <input type="hidden" id="productToDelete">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmDelete">Excluir</button>
+                </div>
             </div>
         </div>
     </div>
     
-    <footer>
-        <p>AgroControl - Sistema de Controle Agrícola &copy; 2023</p>
+    <footer class="mt-5 py-3 text-center">
+        <div class="container">
+            <p class="mb-0">AgroControl - Sistema de Controle Agrícola &copy; 2023</p>
+        </div>
     </footer>
-    
-    <script>
-        // Funções para manipulação dos modais
-        function openModal(action, id = null) {
-            const modal = document.getElementById('productModal');
-            const title = document.getElementById('modalTitle');
-            const form = document.getElementById('productForm');
-            
-            if (action === 'create') {
-                title.textContent = 'Adicionar Produto';
-                form.reset();
-                document.getElementById('productId').value = '';
-            } else if (action === 'edit') {
-                title.textContent = 'Editar Produto';
-                // Aqui você buscaria os dados do produto com o ID fornecido
-                // e preencheria o formulário
-                document.getElementById('productId').value = id;
-                document.getElementById('productName').value = 'Tomate Orgânico'; // Exemplo
-                document.getElementById('productValue').value = '5.90';
-                document.getElementById('productModified').value = '15/05/2023';
-            }
-            
-            modal.style.display = 'flex';
-        }
-        
-        function closeModal() {
-            document.getElementById('productModal').style.display = 'none';
-            document.getElementById('confirmModal').style.display = 'none';
-        }
-        
-        function confirmDelete(id) {
-            document.getElementById('confirmModal').style.display = 'flex';
-            // Aqui você armazenaria o ID do produto a ser excluído
-            document.getElementById('confirmModal').dataset.productId = id;
-        }
-        
-        function deleteProduct() {
-            const id = document.getElementById('confirmModal').dataset.productId;
-            // Aqui você faria a requisição para excluir o produto
-            console.log('Excluir produto ID:', id);
-            closeModal();
-            // Recarregar a lista de produtos ou remover o item da tabela
-        }
-        
-        // Fechar o modal ao clicar fora dele
-        window.onclick = function(event) {
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-        }
-        
-        // Manipular o envio do formulário
-        document.getElementById('productForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const id = document.getElementById('productId').value;
-            const name = document.getElementById('productName').value;
-            const value = document.getElementById('productValue').value;
-            const modified = document.getElementById('productModified').value;
-            
-            if (id) {
-                // Editar produto existente
-                console.log('Editar produto:', {id, name, value, modified});
-            } else {
-                // Criar novo produto
-                console.log('Criar produto:', {name, value, modified});
-            }
-            
-            closeModal();
-            // Recarregar a lista de produtos ou atualizar a tabela
-        });
-    </script>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

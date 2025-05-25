@@ -10,7 +10,10 @@ class ModelPessoa{
         private DateTime $nascimento,
         private Contatos $contatos,   
         private Endereco $endereco, 
+            
+            
     ) {}
+    
     public function create(){
         try{
             $con = Connection::connect();

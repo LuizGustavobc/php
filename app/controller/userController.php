@@ -1,11 +1,11 @@
 <?php 
 require_once __DIR__ . '/../model/modelUser.php';
-require_once __DIR__ .'/pesoaControle.php';
+require_once __DIR__ .'/pessoaController.php';
 
 class UserController{
     
     public function cadastrar(){
-        $pessoa = new PesoaControle();
+        $pessoa = new PessoaController();
         $idPessoa = $pessoa->cadastrar();
 
         $loguin = $_POST['usuario'];
